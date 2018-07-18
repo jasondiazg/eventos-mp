@@ -19,7 +19,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/item/create-item.xhtml</welcome-file>
+        <welcome-file>faces/evento/create-evento.xhtml</welcome-file>
     </welcome-file-list>
     <listener>
         <listener-class>com.sun.faces.config.ConfigureListener</listener-class>

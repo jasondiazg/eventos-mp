@@ -44,7 +44,7 @@ public class EventoEndpointIT {
 
     @Test
     @InSequence(1)
-    public void testAddBid() {
+    public void testAddEvento() {
         WebTarget target = ClientBuilder.newClient()
                 .target(TestConfig.TEST_BASE_URL + "/eventos-mp-rest-test/rest/eventos");
         
@@ -83,7 +83,7 @@ public class EventoEndpointIT {
 
     @Test
     @InSequence(3)
-    public void testDeleteBid() {
+    public void testDeleteEvento() {
         WebTarget target = ClientBuilder.newClient()
                 .target(TestConfig.TEST_BASE_URL + "/eventos-mp-rest-test/rest/eventos/{id}")
                 .resolveTemplate("id", eventoId);

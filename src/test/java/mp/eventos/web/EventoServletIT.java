@@ -38,10 +38,10 @@ public class EventoServletIT {
         // Get account balance
         JsonObject response = client
                 .target(TestConfig.TEST_BASE_URL + "/eventos-mp-servlet-test/eventos")
-                .queryParam("user_id", "99").request("application/json")
+                .queryParam("lugar", "En el SIAMP").request("application/json")
                 .get(JsonObject.class);
         // TODO Assert more of the content.
-        assertEquals(3, response.getJsonArray("eventos").size());
+        assertEquals(1, response.getJsonArray("eventos").size());
     }
 
 }
