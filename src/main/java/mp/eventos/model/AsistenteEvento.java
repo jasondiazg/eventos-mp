@@ -2,17 +2,13 @@ package mp.eventos.model;
 
 import javax.persistence.Entity;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -20,10 +16,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author JasonDiazG
  */
-
 @Entity
 @XmlRootElement
-public class Evento implements Serializable {
+public class AsistenteEvento implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,20 +31,21 @@ public class Evento implements Serializable {
     @Column(name = "version")
     private int version;
 
-    @Column
-    private String nombre;
+    @Column(name = "idAsistente")
+    @JoinColumn(
+            name = "idAsistente",
+            referencedColumnName = "id",
+            nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Asistente idAsistente;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    protected Date fechaEvento;
-
-    @Column
-    private String lugar;
-
-    @OneToMany(mappedBy = "idEvento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    protected List<PonenteEvento> ponentes;
-
-    @OneToMany(mappedBy = "idEvento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    protected List<AsistenteEvento> asistentes;
+    @Column(name = "idEvento")
+    @JoinColumn(
+            name = "idEvento",
+            referencedColumnName = "id",
+            nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Evento idEvento;
 
     public Long getId() {
         return this.id;
@@ -67,28 +63,20 @@ public class Evento implements Serializable {
         this.version = version;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Asistente getIdAsistente() {
+        return idAsistente;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setIdAsistente(Asistente idAsistente) {
+        this.idAsistente = idAsistente;
     }
 
-    public Date getFechaEvento() {
-        return fechaEvento;
+    public Evento getIdEvento() {
+        return idEvento;
     }
 
-    public void setFechaEvento(Date fechaEvento) {
-        this.fechaEvento = fechaEvento;
-    }
-
-    public String getLugar() {
-        return lugar;
-    }
-
-    public void setLugar(String lugar) {
-        this.lugar = lugar;
+    public void setIdEvento(Evento idEvento) {
+        this.idEvento = idEvento;
     }
 
     @Override
@@ -96,10 +84,10 @@ public class Evento implements Serializable {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof Evento)) {
+        if (!(obj instanceof AsistenteEvento)) {
             return false;
         }
-        Evento other = (Evento) obj;
+        AsistenteEvento other = (AsistenteEvento) obj;
         if (id != null) {
             if (!id.equals(other.id)) {
                 return false;
@@ -118,6 +106,6 @@ public class Evento implements Serializable {
 
     @Override
     public String toString() {
-        return "Evento{" + "id=" + id + ", version=" + version + ", nombre=" + nombre + ", fechaEvento=" + fechaEvento + ", lugar=" + lugar + '}';
+        return "AsistenteEvento{" + "id=" + id + ", version=" + version + ", idAsistente=" + idAsistente + ", idEvento=" + idEvento + '}';
     }
 }

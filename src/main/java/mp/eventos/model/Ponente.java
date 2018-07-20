@@ -2,17 +2,10 @@ package mp.eventos.model;
 
 import javax.persistence.Entity;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -20,10 +13,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author JasonDiazG
  */
-
 @Entity
 @XmlRootElement
-public class Evento implements Serializable {
+public class Ponente implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,17 +31,14 @@ public class Evento implements Serializable {
     @Column
     private String nombre;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    protected Date fechaEvento;
+    @Column
+    private String apellido;
 
     @Column
-    private String lugar;
+    private String email;
 
-    @OneToMany(mappedBy = "idEvento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    protected List<PonenteEvento> ponentes;
-
-    @OneToMany(mappedBy = "idEvento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    protected List<AsistenteEvento> asistentes;
+    @Column
+    private String identificacion;
 
     public Long getId() {
         return this.id;
@@ -75,37 +64,45 @@ public class Evento implements Serializable {
         this.nombre = nombre;
     }
 
-    public Date getFechaEvento() {
-        return fechaEvento;
-    }
-
-    public void setFechaEvento(Date fechaEvento) {
-        this.fechaEvento = fechaEvento;
-    }
-
-    public String getLugar() {
-        return lugar;
-    }
-
-    public void setLugar(String lugar) {
-        this.lugar = lugar;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof Evento)) {
+        if (!(obj instanceof Ponente)) {
             return false;
         }
-        Evento other = (Evento) obj;
+        Ponente other = (Ponente) obj;
         if (id != null) {
             if (!id.equals(other.id)) {
                 return false;
             }
         }
         return true;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getIdentificacion() {
+        return identificacion;
+    }
+
+    public void setIdentificacion(String identificacion) {
+        this.identificacion = identificacion;
     }
 
     @Override
@@ -118,6 +115,7 @@ public class Evento implements Serializable {
 
     @Override
     public String toString() {
-        return "Evento{" + "id=" + id + ", version=" + version + ", nombre=" + nombre + ", fechaEvento=" + fechaEvento + ", lugar=" + lugar + '}';
+        return "Ponente{" + "id=" + id + ", version=" + version + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", identificacion=" + identificacion + '}';
     }
+
 }

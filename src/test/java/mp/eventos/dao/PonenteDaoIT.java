@@ -1,6 +1,5 @@
 package mp.eventos.dao;
 
-import java.util.Date;
 import static org.junit.Assert.assertEquals;
 import javax.ejb.EJB;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -10,7 +9,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import mp.eventos.model.Evento;
+import mp.eventos.model.Ponente;
 import static org.junit.Assert.assertNull;
 
 /**
@@ -18,7 +17,7 @@ import static org.junit.Assert.assertNull;
  * @author JasonDiazG
  */
 @RunWith(Arquillian.class)
-public class EventoDaoIT {
+public class PonenteDaoIT {
 
     private static Long entityId;
 
@@ -26,49 +25,49 @@ public class EventoDaoIT {
     public static WebArchive createDeployment() {
         return ShrinkWrap
                 .create(WebArchive.class, "evento-dao-test.war")
-                .addClasses(EventoDao.class, Evento.class)
+                .addClasses(PonenteDao.class, Ponente.class)
                 .addAsWebInfResource("test-beans.xml", "beans.xml")
                 .addAsResource("test-persistence.xml", "META-INF/persistence.xml");
     }
 
     @EJB
-    private EventoDao service;
+    private PonenteDao service;
 
     @Test
     @InSequence(1)
-    public void testAddEvento() {
+    public void testAddEntity() {
         
-        Evento entity = new Evento();
-        entity.setNombre("Evento de prueba");
-        entity.setFechaEvento(new Date());
-        entity.setLugar("Lugar de prueba");
-
+        Ponente entity = new Ponente();
+        entity.setNombre("Jason");
+        entity.setApellido("Diaz");
+        entity.setEmail("jasondiazg@mp.gob.gt");
+        entity.setIdentificacion("1234-56789-0101");
+        
         service.create(entity);
         entityId = entity.getId();
 
         entity = service.findById(entityId);
-        assertEquals("Evento de prueba", entity.getNombre());
+        assertEquals("Jason Diaz (jasondiaz@mp.gob.gt, 1234-56789-0101)", (entity.getNombre() + " " + entity.getApellido() + " (" + entity.getEmail() + ", " + entity.getIdentificacion() + ")"));
     }
 
     @Test
     @InSequence(2)
-    public void testModifyEvento() {
-        Evento entity = service.findById(entityId);
-        entity.setLugar("Nuevo lugar");
+    public void testModifyEntity() {
+        Ponente entity = service.findById(entityId);
+        entity.setNombre("Jason Rene");
         service.update(entity);
 
         entityId = entity.getId();
         entity = service.findById(entityId);
-        assertEquals("Evento de prueba", entity.getNombre());
-        assertEquals("Nuevo lugar", entity.getLugar());
+        assertEquals("Jason Rene Diaz (jasondiaz@mp.gob.gt, 1234-56789-0101)", (entity.getNombre() + " " + entity.getApellido() + " (" + entity.getEmail() + ", " + entity.getIdentificacion() + ")"));
     }
 
     @Test
     @InSequence(3)
-    public void testDeleteEvento() {
+    public void testDeleteEntity() {
         service.deleteById(entityId);
 
-        Evento entity = service.findById(entityId);
+        Ponente entity = service.findById(entityId);
         assertNull(entity);
     }
 

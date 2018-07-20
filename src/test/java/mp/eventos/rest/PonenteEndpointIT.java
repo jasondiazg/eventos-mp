@@ -1,7 +1,7 @@
 package mp.eventos.rest;
 
-import mp.eventos.dao.EventoDao;
-import mp.eventos.model.Evento;
+import mp.eventos.dao.PonenteDao;
+import mp.eventos.model.Ponente;
 import mp.eventos.util.TestConfig;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.ClientBuilder;
@@ -23,7 +23,7 @@ import org.junit.runner.RunWith;
  */
 
 @RunWith(Arquillian.class)
-public class EventoEndpointIT {
+public class PonenteEndpointIT {
 
     private static Long entityId;
 
@@ -31,8 +31,8 @@ public class EventoEndpointIT {
     public static WebArchive createDeployment() {
         return ShrinkWrap
                 .create(WebArchive.class, "eventos-mp-rest-test.war")
-                .addClasses(EventoEndpoint.class, RestApplication.class,
-                        EventoDao.class, Evento.class)
+                .addClasses(PonenteEndpoint.class, RestApplication.class,
+                        PonenteDao.class, Ponente.class)
                 .addAsWebInfResource("test-beans.xml", "beans.xml")
                 .addAsWebInfResource("test-beans.xml", "beans.xml")
                 .addAsResource("test-persistence.xml", "META-INF/persistence.xml");
@@ -44,18 +44,20 @@ public class EventoEndpointIT {
         WebTarget target = ClientBuilder.newClient()
                 .target(TestConfig.TEST_BASE_URL + "/eventos-mp-rest-test/rest/eventos");
 
-        Evento entity = new Evento();
+        Ponente entity = new Ponente();
+        
+        entity.setNombre("Jason");
+        entity.setApellido("Diaz");
+        entity.setEmail("jasondiazg@mp.gob.gt");
+        entity.setIdentificacion("1234-56789-0101");
 
-        entity.setNombre("Evento prueba");
-        entity.setLugar("Lugar del evento");
-
-        entity = target.request("application/json").post(Entity.json(entity), Evento.class);
+        entity = target.request("application/json").post(Entity.json(entity), Ponente.class);
         entityId = entity.getId();
 
         entity = target.path("{id}").resolveTemplate("id", entityId)
-                .request("application/json").get(Evento.class);
+                .request("application/json").get(Ponente.class);
 
-        assertEquals("Evento prueba", entity.getNombre());
+        assertEquals("Jason Diaz (jasondiaz@mp.gob.gt, 1234-56789-0101)", (entity.getNombre() + " " + entity.getApellido() + " (" + entity.getEmail() + ", " + entity.getIdentificacion() + ")"));
     }
 
     @Test
@@ -65,16 +67,15 @@ public class EventoEndpointIT {
                 .target(TestConfig.TEST_BASE_URL + "/eventos-mp-rest-test/rest/eventos/{id}")
                 .resolveTemplate("id", entityId);
 
-        Evento entity = target.request("application/json").get(Evento.class);
-
-        entity.setLugar("Lugar actualizado");
+        Ponente entity = target.request("application/json").get(Ponente.class);
+        
+        entity.setNombre("Jason Rene");
 
         target.request().put(Entity.json(entity));
 
-        entity = target.request("application/json").get(Evento.class);
-
-        assertEquals("Evento prueba", entity.getNombre());
-        assertEquals("Lugar actualizado", entity.getLugar());
+        entity = target.request("application/json").get(Ponente.class);
+        
+        assertEquals("Jason Rene Diaz (jasondiaz@mp.gob.gt, 1234-56789-0101)", (entity.getNombre() + " " + entity.getApellido() + " (" + entity.getEmail() + ", " + entity.getIdentificacion() + ")"));
     }
 
     @Test
@@ -84,9 +85,9 @@ public class EventoEndpointIT {
                 .target(TestConfig.TEST_BASE_URL + "/eventos-mp-rest-test/rest/eventos/{id}")
                 .resolveTemplate("id", entityId);
         target.request().delete();
-        Evento entity = null;
+        Ponente entity = null;
         try {
-            entity = target.request("application/json").get(Evento.class);
+            entity = target.request("application/json").get(Ponente.class);
         } catch (NotFoundException e) {
         }
         assertNull(entity);
