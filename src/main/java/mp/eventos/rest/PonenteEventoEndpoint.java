@@ -52,6 +52,20 @@ public class PonenteEventoEndpoint {
 
     @GET
     @Path("/evento")
+    public List<PonenteEvento> listAllByIdEvento(@QueryParam("idEvento") final Integer idEvento) {
+        final List<PonenteEvento> entities = service.listAllByEvento(idEvento, null, null);
+        return entities;
+    }
+
+    @GET
+    @Path("/ponente")
+    public List<PonenteEvento> listAllByIdAsistente(@QueryParam("idPonente") final Integer idPonente) {
+        final List<PonenteEvento> entities = service.listAllByPonente(idPonente, null, null);
+        return entities;
+    }
+
+    @GET
+    @Path("/evento")
     public List<PonenteEvento> listAllByIdEvento(@QueryParam("idEvento") final Integer idEvento,
             @QueryParam("start") final Integer startPosition,
             @QueryParam("max") final Integer maxResult) {
