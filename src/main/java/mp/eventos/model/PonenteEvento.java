@@ -32,7 +32,6 @@ public class PonenteEvento implements Serializable {
     @Column(name = "version")
     private int version;
 
-    @Column(name = "idPonente")
     @JoinColumn(
             name = "idPonente",
             referencedColumnName = "id",
@@ -40,7 +39,6 @@ public class PonenteEvento implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Ponente idPonente;
 
-    @Column(name = "idEvento")
     @JoinColumn(
             name = "idEvento",
             referencedColumnName = "id",

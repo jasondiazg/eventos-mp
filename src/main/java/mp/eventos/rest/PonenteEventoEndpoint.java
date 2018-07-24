@@ -65,19 +65,19 @@ public class PonenteEventoEndpoint {
     }
 
     @GET
-    @Path("/evento")
+    @Path("/evento/{start:[0-9][0-9]*}/{max:[0-9][0-9]*}")
     public List<PonenteEvento> listAllByIdEvento(@QueryParam("idEvento") final Integer idEvento,
-            @QueryParam("start") final Integer startPosition,
-            @QueryParam("max") final Integer maxResult) {
+            @PathParam("start") final Integer startPosition,
+            @PathParam("max") final Integer maxResult) {
         final List<PonenteEvento> entities = service.listAllByEvento(idEvento, startPosition, maxResult);
         return entities;
     }
 
     @GET
-    @Path("/ponente")
+    @Path("/ponente/{start:[0-9][0-9]*}/{max:[0-9][0-9]*}")
     public List<PonenteEvento> listAllByIdPonente(@QueryParam("idPonente") final Integer idPonente,
-            @QueryParam("start") final Integer startPosition,
-            @QueryParam("max") final Integer maxResult) {
+            @PathParam("start") final Integer startPosition,
+            @PathParam("max") final Integer maxResult) {
         final List<PonenteEvento> entities = service.listAllByPonente(idPonente, startPosition, maxResult);
         return entities;
     }

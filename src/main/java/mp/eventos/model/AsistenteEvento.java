@@ -31,7 +31,6 @@ public class AsistenteEvento implements Serializable {
     @Column(name = "version")
     private int version;
 
-    @Column(name = "idAsistente")
     @JoinColumn(
             name = "idAsistente",
             referencedColumnName = "id",
@@ -39,7 +38,6 @@ public class AsistenteEvento implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Asistente idAsistente;
 
-    @Column(name = "idEvento")
     @JoinColumn(
             name = "idEvento",
             referencedColumnName = "id",
