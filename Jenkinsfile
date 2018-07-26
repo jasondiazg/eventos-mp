@@ -17,7 +17,7 @@ pipeline {
         }
         steps {
             echo "Deploying from branch develop"
-            sh 'cp target/eventos-mp-0.0.1.war ~/payara41/glassfish/domains/payaradomain/autodeploy/'
+            sh 'cp target/eventos-mp.war ~/payara41/glassfish/domains/payaradomain/autodeploy/'
         }    
     }
     stage('Docker:develop') {
@@ -37,7 +37,7 @@ pipeline {
         }
         steps {
             echo "Deploying from branch master"
-            sh 'cp target/eventos-mp-0.0.1.war ~/opt/server/payara41/glassfish/domains/payaradomain/autodeploy/'
+            sh 'cp target/eventos-mp.war ~/payara41/glassfish/domains/payaradomain/autodeploy/'
         }     
     }
   }
