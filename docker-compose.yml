@@ -1,0 +1,21 @@
+version: "3"
+services:
+  web:
+    image: jasondiazg/eventos-mp-micro:2
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "4000:8080"
+    networks:
+      - webnet
+  derby:
+    image: datagrip/derby-server:10.11
+    ports:
+      - "1527:1527"
+    networks:
+      - webnet
+networks:
+  webnet:
+
