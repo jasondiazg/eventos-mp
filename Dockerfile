@@ -2,5 +2,5 @@
 FROM payara/micro:5-SNAPSHOT
 
 #Adding war file
-COPY target/eventos-mp-0.0.1.war $DEPLOY_DIR
+COPY target/eventos-mp.war $DEPLOY_DIR
 
