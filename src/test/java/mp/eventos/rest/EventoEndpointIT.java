@@ -7,6 +7,10 @@ import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import mp.eventos.model.Asistente;
+import mp.eventos.model.AsistenteEvento;
+import mp.eventos.model.Ponente;
+import mp.eventos.model.PonenteEvento;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
@@ -32,7 +36,8 @@ public class EventoEndpointIT {
         return ShrinkWrap
                 .create(WebArchive.class, "eventos-mp-rest-test.war")
                 .addClasses(EventoEndpoint.class, RestApplication.class,
-                        EventoDao.class, Evento.class)
+                        EventoDao.class, Evento.class, Ponente.class, Asistente.class,
+                        PonenteEvento.class, AsistenteEvento.class)
                 .addAsWebInfResource("test-beans.xml", "beans.xml")
                 .addAsWebInfResource("test-beans.xml", "beans.xml")
                 .addAsResource("test-persistence.xml", "META-INF/persistence.xml");

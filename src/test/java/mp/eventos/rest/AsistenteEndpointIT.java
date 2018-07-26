@@ -31,7 +31,7 @@ public class AsistenteEndpointIT {
     public static WebArchive createDeployment() {
         return ShrinkWrap
                 .create(WebArchive.class, "eventos-mp-rest-test.war")
-                .addClasses(PonenteEndpoint.class, RestApplication.class,
+                .addClasses(AsistenteEndpoint.class, RestApplication.class,
                         AsistenteDao.class, Asistente.class)
                 .addAsWebInfResource("test-beans.xml", "beans.xml")
                 .addAsWebInfResource("test-beans.xml", "beans.xml")
@@ -40,9 +40,9 @@ public class AsistenteEndpointIT {
 
     @Test
     @InSequence(1)
-    public void testAddEvento() {
+    public void testAddEntity() {
         WebTarget target = ClientBuilder.newClient()
-                .target(TestConfig.TEST_BASE_URL + "/eventos-mp-rest-test/rest/eventos");
+                .target(TestConfig.TEST_BASE_URL + "/eventos-mp-rest-test/rest/asistentes");
         
         Asistente entity = new Asistente();
         entity.setNombre("Victor");
@@ -61,9 +61,9 @@ public class AsistenteEndpointIT {
 
     @Test
     @InSequence(2)
-    public void testUpdateEvento() {
+    public void testUpdateEntity() {
         WebTarget target = ClientBuilder.newClient()
-                .target(TestConfig.TEST_BASE_URL + "/eventos-mp-rest-test/rest/eventos/{id}")
+                .target(TestConfig.TEST_BASE_URL + "/eventos-mp-rest-test/rest/asistentes/{id}")
                 .resolveTemplate("id", entityId);
 
         Asistente entity = target.request("application/json").get(Asistente.class);
@@ -78,9 +78,9 @@ public class AsistenteEndpointIT {
 
     @Test
     @InSequence(3)
-    public void testDeleteEvento() {
+    public void testDeleteEntity() {
         WebTarget target = ClientBuilder.newClient()
-                .target(TestConfig.TEST_BASE_URL + "/eventos-mp-rest-test/rest/eventos/{id}")
+                .target(TestConfig.TEST_BASE_URL + "/eventos-mp-rest-test/rest/asistentes/{id}")
                 .resolveTemplate("id", entityId);
         target.request().delete();
         Asistente entity = null;

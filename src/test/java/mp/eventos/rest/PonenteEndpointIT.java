@@ -42,7 +42,7 @@ public class PonenteEndpointIT {
     @InSequence(1)
     public void testAddEvento() {
         WebTarget target = ClientBuilder.newClient()
-                .target(TestConfig.TEST_BASE_URL + "/eventos-mp-rest-test/rest/eventos");
+                .target(TestConfig.TEST_BASE_URL + "/eventos-mp-rest-test/rest/ponentes");
 
         Ponente entity = new Ponente();
         
@@ -57,14 +57,14 @@ public class PonenteEndpointIT {
         entity = target.path("{id}").resolveTemplate("id", entityId)
                 .request("application/json").get(Ponente.class);
 
-        assertEquals("Jason Diaz (jasondiaz@mp.gob.gt, 1234-56789-0101)", (entity.getNombre() + " " + entity.getApellido() + " (" + entity.getEmail() + ", " + entity.getIdentificacion() + ")"));
+        assertEquals("Jason Diaz (jasondiazg@mp.gob.gt, 1234-56789-0101)", (entity.getNombre() + " " + entity.getApellido() + " (" + entity.getEmail() + ", " + entity.getIdentificacion() + ")"));
     }
 
     @Test
     @InSequence(2)
     public void testUpdateEvento() {
         WebTarget target = ClientBuilder.newClient()
-                .target(TestConfig.TEST_BASE_URL + "/eventos-mp-rest-test/rest/eventos/{id}")
+                .target(TestConfig.TEST_BASE_URL + "/eventos-mp-rest-test/rest/ponentes/{id}")
                 .resolveTemplate("id", entityId);
 
         Ponente entity = target.request("application/json").get(Ponente.class);
@@ -75,14 +75,14 @@ public class PonenteEndpointIT {
 
         entity = target.request("application/json").get(Ponente.class);
         
-        assertEquals("Jason Rene Diaz (jasondiaz@mp.gob.gt, 1234-56789-0101)", (entity.getNombre() + " " + entity.getApellido() + " (" + entity.getEmail() + ", " + entity.getIdentificacion() + ")"));
+        assertEquals("Jason Rene Diaz (jasondiazg@mp.gob.gt, 1234-56789-0101)", (entity.getNombre() + " " + entity.getApellido() + " (" + entity.getEmail() + ", " + entity.getIdentificacion() + ")"));
     }
 
     @Test
     @InSequence(3)
     public void testDeleteEvento() {
         WebTarget target = ClientBuilder.newClient()
-                .target(TestConfig.TEST_BASE_URL + "/eventos-mp-rest-test/rest/eventos/{id}")
+                .target(TestConfig.TEST_BASE_URL + "/eventos-mp-rest-test/rest/ponentes/{id}")
                 .resolveTemplate("id", entityId);
         target.request().delete();
         Ponente entity = null;

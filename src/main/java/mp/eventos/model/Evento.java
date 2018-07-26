@@ -45,6 +45,9 @@ public class Evento implements Serializable {
     @Column
     private String lugar;
 
+    @Column
+    private boolean proximoAEjecutarse;
+
     @OneToMany(mappedBy = "idEvento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     protected List<PonenteEvento> ponentes;
 
@@ -91,6 +94,30 @@ public class Evento implements Serializable {
         this.lugar = lugar;
     }
 
+    public List<PonenteEvento> getPonentes() {
+        return ponentes;
+    }
+
+    public void setPonentes(List<PonenteEvento> ponentes) {
+        this.ponentes = ponentes;
+    }
+
+    public List<AsistenteEvento> getAsistentes() {
+        return asistentes;
+    }
+
+    public void setAsistentes(List<AsistenteEvento> asistentes) {
+        this.asistentes = asistentes;
+    }
+
+    public boolean isProximoAEjecutarse() {
+        return proximoAEjecutarse;
+    }
+
+    public void setProximoAEjecutarse(boolean proximoAEjecutarse) {
+        this.proximoAEjecutarse = proximoAEjecutarse;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -118,6 +145,6 @@ public class Evento implements Serializable {
 
     @Override
     public String toString() {
-        return "Evento{" + "id=" + id + ", version=" + version + ", nombre=" + nombre + ", fechaEvento=" + fechaEvento + ", lugar=" + lugar + '}';
+        return "Evento{" + "id=" + id + ", version=" + version + ", nombre=" + nombre + ", fechaEvento=" + fechaEvento + ", lugar=" + lugar + ", proximoAEjecutarse=" + proximoAEjecutarse + '}';
     }
 }

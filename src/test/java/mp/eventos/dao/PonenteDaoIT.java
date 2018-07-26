@@ -47,7 +47,7 @@ public class PonenteDaoIT {
         entityId = entity.getId();
 
         entity = service.findById(entityId);
-        assertEquals("Jason Diaz (jasondiaz@mp.gob.gt, 1234-56789-0101)", (entity.getNombre() + " " + entity.getApellido() + " (" + entity.getEmail() + ", " + entity.getIdentificacion() + ")"));
+        assertEquals("Jason Diaz (jasondiazg@mp.gob.gt, 1234-56789-0101)", (entity.getNombre() + " " + entity.getApellido() + " (" + entity.getEmail() + ", " + entity.getIdentificacion() + ")"));
     }
 
     @Test
@@ -55,11 +55,11 @@ public class PonenteDaoIT {
     public void testModifyEntity() {
         Ponente entity = service.findById(entityId);
         entity.setNombre("Jason Rene");
+        
         service.update(entity);
-
         entityId = entity.getId();
         entity = service.findById(entityId);
-        assertEquals("Jason Rene Diaz (jasondiaz@mp.gob.gt, 1234-56789-0101)", (entity.getNombre() + " " + entity.getApellido() + " (" + entity.getEmail() + ", " + entity.getIdentificacion() + ")"));
+        assertEquals("Jason Rene Diaz (jasondiazg@mp.gob.gt, 1234-56789-0101)", (entity.getNombre() + " " + entity.getApellido() + " (" + entity.getEmail() + ", " + entity.getIdentificacion() + ")"));
     }
 
     @Test

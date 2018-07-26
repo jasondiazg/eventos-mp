@@ -46,6 +46,9 @@ public class PonenteEvento implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Evento idEvento;
 
+    @Column
+    private String ponencia;
+
     public Long getId() {
         return this.id;
     }
@@ -78,6 +81,14 @@ public class PonenteEvento implements Serializable {
         this.idEvento = idEvento;
     }
 
+    public String getPonencia() {
+        return ponencia;
+    }
+
+    public void setPonencia(String ponencia) {
+        this.ponencia = ponencia;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -105,6 +116,6 @@ public class PonenteEvento implements Serializable {
 
     @Override
     public String toString() {
-        return "PonenteEvento{" + "id=" + id + ", version=" + version + ", idPonente=" + idPonente + ", idEvento=" + idEvento + '}';
+        return "PonenteEvento{" + "id=" + id + ", version=" + version + ", idPonente=" + idPonente + ", ponencia=" + ponencia + ", idEvento=" + idEvento + '}';
     }
 }

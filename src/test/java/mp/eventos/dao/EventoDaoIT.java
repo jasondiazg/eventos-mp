@@ -3,6 +3,8 @@ package mp.eventos.dao;
 import java.util.Date;
 import static org.junit.Assert.assertEquals;
 import javax.ejb.EJB;
+import mp.eventos.model.Asistente;
+import mp.eventos.model.AsistenteEvento;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
@@ -11,6 +13,8 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import mp.eventos.model.Evento;
+import mp.eventos.model.Ponente;
+import mp.eventos.model.PonenteEvento;
 import static org.junit.Assert.assertNull;
 
 /**
@@ -26,7 +30,7 @@ public class EventoDaoIT {
     public static WebArchive createDeployment() {
         return ShrinkWrap
                 .create(WebArchive.class, "evento-dao-test.war")
-                .addClasses(EventoDao.class, Evento.class)
+                .addClasses(EventoDao.class, Evento.class, PonenteEvento.class, AsistenteEvento.class, Asistente.class, Ponente.class)
                 .addAsWebInfResource("test-beans.xml", "beans.xml")
                 .addAsResource("test-persistence.xml", "META-INF/persistence.xml");
     }
