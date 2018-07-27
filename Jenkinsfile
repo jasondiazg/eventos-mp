@@ -28,7 +28,11 @@ pipeline {
             echo "Uploading built image to latest"
             sh 'docker build -t eventos-mp-micro .'
             sh 'docker tag eventos-mp-micro jasondiazg/eventos-mp-micro:$(git rev-parse --short HEAD)'
-            sh 'docker push jasondiazg/eventos-mp-micro'
+            
+            docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+            app.push("eventos-mp-micro")
+            app.push("latest")
+            //sh 'docker push jasondiazg/eventos-mp-micro'
         }    
     }
     stage('Deploy:master') {
