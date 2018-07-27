@@ -27,7 +27,7 @@ pipeline {
         steps {
             echo "Uploading built image to latest"
             sh 'docker build -t eventos-mp-micro .'
-            sh 'docker tag eventos-mp-micro jasondiazg/eventos-mp-micro:$(git rev-parse --short HEAD)"'
+            sh 'docker tag eventos-mp-micro jasondiazg/eventos-mp-micro:$(git rev-parse --short HEAD)'
             sh 'docker push jasondiazg/eventos-mp-micro'
         }    
     }
