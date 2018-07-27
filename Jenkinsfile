@@ -1,7 +1,7 @@
+def app
 pipeline {
   agent any
   stages {
-    def app
     stage('Build') {
       steps {
         sh 'mvn clean package -DskipTests'
